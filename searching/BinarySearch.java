@@ -1,7 +1,7 @@
-package techniques;
+package searching;
 
 /**
- * Used to find an element in a ordered/sorted collection
+ * Used to find an element in a sorted/ordered collection
  * Time Complexity: O(logN)
  * Space Complexity: O(1)
  */
@@ -29,7 +29,7 @@ public class BinarySearch {
 
         while(left < right){
             pivot = left + (right - left) / 2;
-            if(target < nums[pivot]) right = pivot;
+            if(target <= nums[pivot]) right = pivot;
             else if (target > nums[pivot]) left = pivot + 1;
         }
 
@@ -43,9 +43,8 @@ public class BinarySearch {
 
         while(left + 1 < right){
             pivot = left + (right - left) / 2;
-            if(nums[pivot] == target) return pivot;
-            else if (nums[pivot] > target) right = pivot - 1;
-            else left = pivot;
+            if(target < nums[pivot]) right = pivot - 1;
+            else if (target >= nums[pivot]) left = pivot;
         }
 
         if (nums[right] == target) return right;
