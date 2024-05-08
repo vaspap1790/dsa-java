@@ -16,7 +16,7 @@ public class Theory {
     /**
      * Big O Notation
      * It is used to classify algorithms according to how their run Time and Space Complexity
-     *   1  <=  logN  <=  sqr(N)  <=  N  <=  NlogN  <=  N^2  <=  N^3  <=  2^N  <=  <= N!
+     *  1  <=  logN  <=  sqr(N)  <=  N  <=  NlogN  <=  N^2  <=  N^3  <=  2^N  <=  N!
      */
 
     /**
@@ -63,4 +63,34 @@ public class Theory {
      * The reason is simple — it's easier to code a recursive approach for a given problem.
      */
 
+    /**
+     * Dynamic Programming
+     * Simplifying a complicated problem by breaking it down into simpler sub-problems in a recursive manner
+     * Optimized version of recursion
+     * Use cases: optimal (max, min, shortest, longest etc), number of ways to do sth
+     */
+
+    /**
+     * Memoization - Top Down Dynamic Programming
+     * cache the results of function calls and return the cached result to avoid the repeated work
+     * Use case: when we can divide the problem into overlapping subproblems
+     * still uses recursion
+     * well-suited for problems that have a relatively small set of inputs
+     */
+
+    /**
+     * Tabulation - Bottom Up Dynamic Programming
+     * store the results of the subproblems in a table and use these results to solve larger subproblems
+     * until we solve the entire problem
+     * Use case: when we can define the problem as a sequence of subproblems which do not overlap
+     * uses iteration
+     * well-suited for problems that have a large set of inputs
+     */
+
+    /**
+     * Backtracking
+     * is a class of algorithms for finding solutions to some computational problems, notably constraint satisfaction problems,
+     * that incrementally builds candidates to the solutions, and abandons a candidate ("backtracks")
+     * as soon as it determines that the candidate cannot possibly be completed to a valid solution
+     */
 }
