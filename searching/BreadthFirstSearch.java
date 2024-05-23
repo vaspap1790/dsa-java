@@ -1,6 +1,8 @@
 package searching;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -17,8 +19,8 @@ public class BreadthFirstSearch {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         while (!queue.isEmpty()) {
-            int len = queue.size();
-            for (int i = 0; i < len; i++) {
+            int currentLvlSize = queue.size();
+            for (int i = 0; i < currentLvlSize; i++) {
                 TreeNode curr = queue.poll();
                 if(curr != null) {
                     System.out.println(curr.val);
@@ -31,5 +33,28 @@ public class BreadthFirstSearch {
                 }
             }
         }
+    }
+
+    public static List<List<Integer>> bfsBottomUp(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()){
+            int currentLvlSize = queue.size();
+            List<Integer> level = new ArrayList<>();
+            for (int i = 0; i < currentLvlSize; i++) {
+                TreeNode curr = queue.poll();
+                if(curr != null) {
+                    level.add(curr.val);
+                    if (curr.left != null) queue.add(curr.left);
+                    if (curr.right != null) queue.add(curr.right);
+                }
+            }
+            result.add(0, level);
+        }
+
+        return result;
     }
 }

@@ -7,20 +7,20 @@ import java.util.List;
 public class Backtracking {
 
     /**
-     * Subsets
+     * Subsets (Powerset)
      * Ex: [1,2,3] : [], [1], [2], [3], [1,2], [1,3], [2,3], [1,2,3] (Total: 2^n)
      * The idea is to have two conditions:
      * One in which we will take the element into consideration,
      * Second in which we won't take the element into consideration
      */
-    public List<List<Integer>> subsets(int[] nums) {
+    public static List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
         backtrackSubsets(result, new ArrayList<>(), nums, 0);
         return result;
     }
 
-    private void backtrackSubsets(List<List<Integer>> result , List<Integer> tempList, int [] nums, int start){
+    private static void backtrackSubsets(List<List<Integer>> result, List<Integer> tempList, int [] nums, int start){
         result.add(new ArrayList<>(tempList));
         for(int i = start; i < nums.length; i++){
             tempList.add(nums[i]);
@@ -32,14 +32,14 @@ public class Backtracking {
     /**
      * Subsets II
      */
-    public List<List<Integer>> subsetsNoDup(int[] nums) {
+    public static List<List<Integer>> subsetsNoDup(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
         backtrackSubsetsNoDup(result, new ArrayList<>(), nums, 0);
         return result;
     }
 
-    private void backtrackSubsetsNoDup(List<List<Integer>> result, List<Integer> tempList, int [] nums, int start){
+    private static void backtrackSubsetsNoDup(List<List<Integer>> result, List<Integer> tempList, int [] nums, int start){
         result.add(new ArrayList<>(tempList));
         for(int i = start; i < nums.length; i++){
             if(i > start && nums[i] == nums[i - 1]) continue; // skip duplicates
@@ -50,17 +50,18 @@ public class Backtracking {
     }
 
     /**
-     * Permutations
+     * Permutations - no repetition
      * Ex: [1,2,3] : [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], [3,2,1] (Total: N!)
+     * in permutations, the order of the elements matter, ex: [1, 2, 3] != [2, 1, 3]
      */
-    public List<List<Integer>> permute(int[] nums) {
+    public static List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         // Arrays.sort(nums); // not necessary
         backtrackPermutations(result, new ArrayList<>(), nums);
         return result;
     }
 
-    private void backtrackPermutations(List<List<Integer>> result, List<Integer> tempList, int [] nums){
+    private static void backtrackPermutations(List<List<Integer>> result, List<Integer> tempList, int [] nums){
         if(tempList.size() == nums.length){
             result.add(new ArrayList<>(tempList));
         } else {
@@ -76,14 +77,14 @@ public class Backtracking {
     /**
      * Permutations II
      */
-    public List<List<Integer>> permuteUnique(int[] nums) {
+    public static List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
         backtrackPermuteUnique(result, new ArrayList<>(), nums, new boolean[nums.length]);
         return result;
     }
 
-    private void backtrackPermuteUnique(List<List<Integer>> result, List<Integer> tempList, int [] nums, boolean [] used){
+    private static void backtrackPermuteUnique(List<List<Integer>> result, List<Integer> tempList, int [] nums, boolean [] used){
         if(tempList.size() == nums.length){
             result.add(new ArrayList<>(tempList));
         } else {
@@ -99,16 +100,43 @@ public class Backtracking {
     }
 
     /**
+     * Combinations - no repetition
+     * Ex: [1,2,3] : [1,2,3]
+     * in combinations, the order of the elements does not matter, ex: [1, 2, 3] = [2, 1, 3]
+     * usually asked: combinations of k numbers chosen from [1, N]
+     * ex: for N=4 and K=3 : [1, 2, 3], [1, 2, 4], [1, 3, 4], [2, 3, 4]
+     */
+    public static List<List<Integer>> combinations(int n, int k) {
+        List<List<Integer>> result = new ArrayList<>();
+        // Arrays.sort(nums); // not necessary
+        backtrackCombinations(result, new ArrayList<>(), n, k, 1);
+        return result;
+    }
+
+    private static void backtrackCombinations(List<List<Integer>> result, List<Integer> tempList,
+                                              int n, int k, int start){
+        if(tempList.size() == k) {
+            result.add(new ArrayList<>(tempList));
+            return;
+        }
+        for(int i = start; i <= n; i++){
+            tempList.add(i);
+            backtrackCombinations(result, tempList, n, k, i + 1);
+            tempList.remove(tempList.size() - 1);
+        }
+    }
+
+    /**
      * Combination Sum
      */
-    public List<List<Integer>> combinationSum(int[] nums, int target) {
+    public static List<List<Integer>> combinationSum(int[] nums, int target) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
         backtrackCombinationSum(result, new ArrayList<>(), nums, target, 0);
         return result;
     }
 
-    private void backtrackCombinationSum(List<List<Integer>> result, List<Integer> tempList, int [] nums, int remain, int start){
+    private static void backtrackCombinationSum(List<List<Integer>> result, List<Integer> tempList, int [] nums, int remain, int start){
         if(remain < 0) return;
         else if(remain == 0) result.add(new ArrayList<>(tempList));
         else{
@@ -119,10 +147,11 @@ public class Backtracking {
             }
         }
     }
+
     /**
      * Combination Sum II
      */
-    public List<List<Integer>> combinationSum2(int[] nums, int target) {
+    public static List<List<Integer>> combinationSum2(int[] nums, int target) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
         backtrackCombinationSum2(result, new ArrayList<>(), nums, target, 0);
@@ -130,7 +159,7 @@ public class Backtracking {
 
     }
 
-    private void backtrackCombinationSum2(List<List<Integer>> result, List<Integer> tempList, int [] nums, int remain, int start){
+    private static void backtrackCombinationSum2(List<List<Integer>> result, List<Integer> tempList, int [] nums, int remain, int start){
         if(remain < 0) return;
         else if(remain == 0) result.add(new ArrayList<>(tempList));
         else{
@@ -146,13 +175,13 @@ public class Backtracking {
     /**
      * Palindrome Partitioning
      */
-    public List<List<String>> partition(String s) {
+    public static List<List<String>> partition(String s) {
         List<List<String>> result = new ArrayList<>();
         backtrackPartition(result, new ArrayList<>(), s, 0);
         return result;
     }
 
-    public void backtrackPartition(List<List<String>> result, List<String> tempList, String s, int start){
+    public static void backtrackPartition(List<List<String>> result, List<String> tempList, String s, int start){
         if(start == s.length())
             result.add(new ArrayList<>(tempList));
         else{
@@ -166,7 +195,7 @@ public class Backtracking {
         }
     }
 
-    public boolean isPalindrome(String s, int low, int high){
+    public static boolean isPalindrome(String s, int low, int high){
         while(low < high)
             if(s.charAt(low++) != s.charAt(high--)) return false;
         return true;

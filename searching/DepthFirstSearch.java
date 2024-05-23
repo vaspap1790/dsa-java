@@ -11,7 +11,7 @@ public class DepthFirstSearch {
     /**
      * Inorder Traversal
      * Left Child - Parent Node - Right Child
-     * Returns Ascending Sorted Order
+     * Often used to recreate the tree from an array
      */
     public void inorderDFS(TreeNode node){
         if(node == null) return;
@@ -24,7 +24,7 @@ public class DepthFirstSearch {
     /**
      * Preorder Traversal
      * Parent Node - Left Child - Right Child
-     * Often used to recreate the tree from an array
+     * Returns Ascending Sorted Order
      */
     public void preorderDFS(TreeNode node){
         if(node == null) return;
